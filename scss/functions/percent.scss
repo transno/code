@@ -1,0 +1,20 @@
+@charset "utf-8"
+
+// 方便计算目标框对于外框的%数
+@function calc-percent($target,$context){
+	@return $target/$context * 100%;
+}
+
+/****** use ******
+
+.foo{
+	width: calc-percent(100px,200px);
+}
+
+******* output ******
+
+.foo{
+	width: 50%;
+}
+
+******************/
