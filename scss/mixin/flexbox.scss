@@ -4,34 +4,50 @@
     display: -moz-box;
     display: box;
     display: -ms-flexbox;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: flex;
 }
 
 @mixin flexChild($num:1) {
     -webkit-box-flex: num;
+    -moz-box-flex: num;
+    -ms-box-flex: num;
     box-flex: num;
     -webkit-flex: num;
+    -moz-flex: num;
+    -ms-flex: num;
     flex: num;
 }
-/*
-*** 简单的flexbox兼容模式 ***
-*** Use ***
+/**
+ ** 简单的flexbox兼容模式 ***
+ ** Use ***
 .container {
-  @include flexbox();
+    @include flexbox();
 }
 .container .child() {
-	@include flexChild();
+    @include flexChild();
 }
 *** Output ***
 .container {
-  display: -webkit-box;
-  display: -moz-box;
-  display: box;
-  display: -ms-flexbox;
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: flex;
 }
 .container .child() {
-	-webkit-box-flex: 1;
-	box-flex: 1;
-	-webkit-flex: 1;
-	flex: 1;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -ms-box-flex: 1;
+    box-flex: 1;
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
 }
 */
