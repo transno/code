@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>二进制矩阵雨</title>
+	<style type="text/css">
+		*{ margin: 0; padding: 0;}
+		body{ overflow: hidden; background-color: #000;}
+	</style>
+</head>
+<body>
+	<canvas id="martrix"></canvas>
+</body>
+<script type="text/javascript">
+	var martrix = document.getElementById('martrix');
+	var context = martrix.getContext('2d');
+	martrix.width = window.innerWidth;
+	martrix.height = window.innerHeight;
+	var drop = [];
+	var font_size = 16;
+	var colums = martrix.width / font_size;
+
+	for (var i = 0; i < colums; i++) {
+		drop[i] = 1;
+	};
+
+	function drawMartrix(){
+		context.fillStyle = "rgba(0,0,0,0.05)";
+		context.fillRect(0, 0, martrix.width, martrix.height);
+
+		context.fillStyle = "green";
+		context.font = font_size + 'px';
+		for (var i = 0; i < colums; i++) {
+			// 通过Math.random()随机数字0，1
+			context.fillText(Math.floor(Math.random() * 2), i * font_size, drop[i] * font_size);
+
+			// 判断消失的位置，设置Math.random()>0.85是为了防止在martrix.height 2/3处出现断层消失
+			if (drop[i] * font_size > (martrix.height*2/3) && Math.random()>0.85) {
+				drop[i] = 0;
+			};
+
+			drop[i]++;
+		};
+	}
+
+	setInterval(drawMartrix,50);
+</script>
+</html>
