@@ -11,14 +11,14 @@
 }
 
 @mixin flexChild($num:1) {
-    -webkit-box-flex: num;
-    -moz-box-flex: num;
-    -ms-box-flex: num;
-    box-flex: num;
-    -webkit-flex: num;
-    -moz-flex: num;
-    -ms-flex: num;
-    flex: num;
+    -webkit-box-flex: $num;
+    -moz-box-flex: $num;
+    -ms-box-flex: $num;
+    box-flex: $num;
+    -webkit-flex: $num;
+    -moz-flex: $num;
+    -ms-flex: $num;
+    flex: $num;
 }
 /**
  ** 简单的flexbox兼容模式 ***
