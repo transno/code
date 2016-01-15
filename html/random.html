@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>随机</title>
+    <style>
+    	#result{ padding-top: 10px;}
+    	.redBall{ display: inline-block; width: 40px; height: 40px; border-radius: 50%; background-color: red; text-align: center; line-height: 40px; color: #fff; margin-right: 5px; margin-bottom: 5px;}
+    	.blueBall{ display: inline-block; width: 40px; height: 40px; border-radius: 50%; background-color: blue; text-align: center; line-height: 40px; color: #fff; margin-bottom: 5px;}
+    </style>
+</head>
+
+<body>
+    <input type="text" value="" placeholder="请输入次数" id="text">
+    <input type="submit" value="开始" id="submit">
+    <div id="result"></div>
+    <script type="text/javascript">
+    var otext = document.getElementById('text');
+    var oBtn = document.getElementById('submit');
+    var oresult = document.getElementById('result');
+
+    var redBall = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33];
+    var blueBall = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+    var redResultArr = [];
+    var blueResultArr = [];
+
+    var redRandom = Math.random() * redBall.length;
+    var blueRandom = Math.random() * blueBall.length;
+
+    oBtn.onclick = function() {
+        var _time = otext.value;
+        var html = '';
+
+        for (var i = 0; i < _time; i++) {
+            redResultArr = [];
+            blueResultArr = [];
+
+            for (var j = 0; j < 6; j++) {
+                redRandom = Math.random() * redBall.length;
+                var redStoreArr = redBall.splice(redRandom, 1);
+                redResultArr.push(redStoreArr[0]);
+                html += '<div class="redBall">' + redStoreArr[0] + '</div>';
+            };
+
+            blueRandom = Math.random() * blueBall.length;
+            var blueStoreArr = blueBall.splice(blueRandom, 1);
+            blueResultArr.push(blueStoreArr[0]);
+            html += '<div class="blueBall">' + blueStoreArr[0] + '</div><br/>';
+
+            oresult.innerHTML = html;
+        };
+    }
+    </script>
+</body>
+
+</html>
