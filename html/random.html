@@ -26,9 +26,11 @@
     var blueBall = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
     var redResultArr = [];
     var blueResultArr = [];
+    var redBallClone = redBall.slice();
+    var blueBallClone = blueBall.slice();
 
-    var redRandom = Math.random() * redBall.length;
-    var blueRandom = Math.random() * blueBall.length;
+    var redRandom = Math.random() * redBallClone.length;
+    var blueRandom = Math.random() * blueBallClone.length;
 
     var Mythical_Animals =  '  ┏┓　　　┏┓\n' +
                         　　'┏┛┻━━━┛┻┓\n' +
@@ -57,21 +59,21 @@
         for (var i = 0; i < _time; i++) {
             redResultArr = [];
             blueResultArr = [];
-
             for (var j = 0; j < 6; j++) {
-                redRandom = Math.random() * redBall.length;
-                var redStoreArr = redBall.splice(redRandom, 1);
+                redRandom = Math.random() * redBallClone.length;
+                var redStoreArr = redBallClone.splice(redRandom, 1);
                 redResultArr.push(redStoreArr[0]);
                 html += '<div class="redBall">' + redStoreArr[0] + '</div>';
             };
 
-            blueRandom = Math.random() * blueBall.length;
-            var blueStoreArr = blueBall.splice(blueRandom, 1);
+            blueRandom = Math.random() * blueBallClone.length;
+            var blueStoreArr = blueBallClone.splice(blueRandom, 1);
             blueResultArr.push(blueStoreArr[0]);
             html += '<div class="blueBall">' + blueStoreArr[0] + '</div><br/>';
 
             oresult.innerHTML = html;
-            
+            redBallClone = redBall.slice();
+            blueBallClone = blueBall.slice();
         };
     }
     
