@@ -30,7 +30,7 @@ CSS如下：
 .galleryZoom { position: fixed; z-index: 9999; top: 0; left: 0; display: block; overflow: hidden; width: 100%; height: 100%; background-color: #000; }
 .galleryZoom .wrapper { position: absolute; z-index: 1; top: 0; right: 0; bottom: 0; left: 0; }
 .galleryZoom .img { position: absolute; top: 50%; left: 50%; transform-origin: left top; -webkit-transform-origin: left top;  }
-.galleryZoom .img img { display: inline-block; max-width: 100%; -webkit-transform: translate3d(0,0,0)}
+.galleryZoom .img img { display: inline-block; -webkit-transform: translate3d(0,0,0)}
 ```
 >IScroll的最外层必须得定义高宽，不然将会出现不能上下滑动的BUG
 
@@ -56,7 +56,7 @@ if (radioW < 1) {
 $('#galleryZoom .img').css({
 	'transform': 'scale(' + radio + ') translate(-50%,-50%)',
 	'-webkit-transform': 'scale(' + radio + ') translate(-50%,-50%)'
-}).find('img').css('max-height', wh);
+});
 
 var zoomScroll = new IScroll('#galleryZoom', {
 	click: true,
