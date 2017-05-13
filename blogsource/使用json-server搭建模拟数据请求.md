@@ -35,7 +35,7 @@ $ npm install -g json-server
 ```bash
 json-server --watch db.json
 
-// 运行成功后如下提升
+// 运行成功后如下提示
 \{^_^}/ hi!
 
   Loading db.json
@@ -67,7 +67,6 @@ json-server --watch db.json
 > - 假如你使用POST，PUT，PATCH或者DELETE请求时，这些请求的操作数据会立刻更新`db.json`里的数据
 > - POST这类请求request需要包含参数`Content-Type:application/json`，不然虽然会返回状态200，但是并不会更新数据
 > - 当POST数据的时候，ID是会自然增长，可以不需要赋值
-> - 
 
 在这里我使用的是`postman`来模拟请求，我给`db.json`添加一条数据：
 ![enter image description here](http://wyguang.net/blog/wp-content/uploads/2017/05/json-server-1.png)
