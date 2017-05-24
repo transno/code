@@ -13,3 +13,12 @@ registry = http://registry.npm.taobao.org
 npm install -g cnpm --registry=https://registry.npm.taobao.org
 ```
 之后使用**npm**的时候可换成**cnpm**
+
+3. 在某些构建的项目中cnpm会有一些错误，当这种情况的时候采取第三种方式：
+在项目根目录新建**.npmrc**文件，然后输入
+```
+sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
+phantomjs_cdnurl=https://npm.taobao.org/mirrors/phantomjs/
+electron_mirror=https://npm.taobao.org/mirrors/electron/
+registry=https://registry.npm.taobao.org
+```
