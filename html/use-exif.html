@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>解决iOS图片上传图片旋转问题</title>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="libs/exif.js"></script>
+</head>
+<body>
+<div style="height: 100px; line-height: 100px;text-align: center;border-bottom: 1px solid #333;">
+    上传图片:
+    <input type="file" accept="image/*" id="uploadImage" capture="camera" onchange="selectFileImage(this);"/>
+</div>
+<div style="margin-top: 10px;">
+    <img alt="查看图片" src="" id="originalImage" style="max-width: 100%;"/>
+    <img alt="canvas转换图片" src="" id="canvasImage" style="max-width: 100%;">
+</div>
+</body>
+<script>
+    // 获取照片元素
+    function selectFileImage (file) {
+        var imgFile = file.files[0],
+            orientation = null; // 定义旋转角度
+
+        var oReader = new FileReader();
+        oReader.onload = function (e) {
+            alert(JSON.stringify(e));
+            $('#originalImage').attr('src', e.target.result);
+            EXIF.getData(imgFile, function () {
+                var allTags = EXIF.getAllTags(this);
+                alert(JSON.stringify(allTags));
+            });
+
+            var image = new Image();
+            image.src = e.target.result;
+            image.onload = function () {
+                var expectWidth = this.naturalWidth;
+                var expectHeight = this.naturalHeight;
+
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext("2d");
+                canvas.width = expectWidth;
+                canvas.height = expectHeight;
+                ctx.drawImage(this, 0, 0, expectWidth, expectHeight);
+
+                $('#canvasImage').attr('src', canvas.toDataURL("image/jpeg"));
+            }
+        }
+        oReader.readAsDataURL(imgFile);
+    }
+</script>
+</html>
