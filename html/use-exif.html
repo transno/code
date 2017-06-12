@@ -13,8 +13,12 @@
     <input type="file" accept="image/*" id="uploadImage" capture="camera" onchange="selectFileImage(this);"/>
 </div>
 <div style="margin-top: 10px;">
+    <p>原始拍照：</p>
     <img alt="查看图片" src="" id="originalImage" style="max-width: 100%;"/>
+    <p>canvas转化的图片，旋转角度<span id="rotate"></span></p>
     <img alt="canvas转换图片" src="" id="canvasImage" style="max-width: 100%;">
+    <p>旋转后的图片：</p>
+    <img alt="旋转图片" src="" id="rotateImage" style="max-width: 100%;">
 </div>
 </body>
 <script>
@@ -30,6 +34,8 @@
             EXIF.getData(imgFile, function () {
                 var allTags = EXIF.getAllTags(this);
                 alert(JSON.stringify(allTags));
+                orientation = allTags.Orientation;
+                $('#rotate').text(orientation);
             });
 
             var image = new Image();
@@ -45,9 +51,32 @@
                 ctx.drawImage(this, 0, 0, expectWidth, expectHeight);
 
                 $('#canvasImage').attr('src', canvas.toDataURL("image/jpeg"));
+
+                if (navigator.userAgent.match(/iphone/i)) {
+                    switch (orientation) {
+                        case 6:
+                            rotateImg(this, 'right');
+                            break;
+                    }
+                }
             }
         }
         oReader.readAsDataURL(imgFile);
+    }
+
+    function rotateImg (img, direction) {
+        var width = img.width;
+        var height = img.height;
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext("2d");
+        var ANGLE = Math.PI / 180;
+
+        canvas.width = height;
+        canvas.height = width;
+//        ctx.rotate(ANGLE * 90);
+        ctx.drawImage(img, 0, 0, height, width);
+
+        $('#rotateImage').attr('src', canvas.toDataURL("image/jpeg"));
     }
 </script>
 </html>
