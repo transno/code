@@ -49,16 +49,19 @@
                 canvas.width = expectWidth;
                 canvas.height = expectHeight;
                 ctx.drawImage(this, 0, 0, expectWidth, expectHeight);
+                console.log(ctx)
 
                 $('#canvasImage').attr('src', canvas.toDataURL("image/jpeg"));
 
-                if (navigator.userAgent.match(/iphone/i)) {
-                    switch (orientation) {
-                        case 6:
-                            rotateImg(this, 'right');
-                            break;
-                    }
-                }
+                rotateImg(this, 'right');
+
+                //                if (navigator.userAgent.match(/iphone/i)) {
+                //                    switch (orientation) {
+                //                        case 6:
+                //                            rotateImg(this, 'right');
+                //                            break;
+                //                    }
+                //                }
             }
         }
         oReader.readAsDataURL(imgFile);
@@ -71,11 +74,13 @@
         var ctx = canvas.getContext("2d");
         var ANGLE = Math.PI / 180;
 
-        canvas.width = height;
-        canvas.height = width;
-//        ctx.rotate(ANGLE * 90);
-        ctx.drawImage(img, 0, 0, height, width);
-
+        //        canvas.width = height;
+        //        canvas.height = width;
+        canvas.width = width;
+        canvas.height = height;
+        ctx.rotate(ANGLE * 90);
+        ctx.drawImage(img, 0, -height, width, height);
+        console.log(ctx)
         $('#rotateImage').attr('src', canvas.toDataURL("image/jpeg"));
     }
 </script>
