@@ -36,52 +36,83 @@
                 alert(JSON.stringify(allTags));
                 orientation = allTags.Orientation;
                 $('#rotate').text(orientation);
+
+                var image = new Image();
+                image.src = e.target.result;
+                image.onload = function () {
+                    var expectWidth = this.naturalWidth;
+                    var expectHeight = this.naturalHeight;
+
+                    var canvas = document.createElement("canvas");
+                    var ctx = canvas.getContext("2d");
+                    canvas.width = expectWidth;
+                    canvas.height = expectHeight;
+                    ctx.drawImage(this, 0, 0, expectWidth, expectHeight);
+
+                    $('#canvasImage').attr('src', canvas.toDataURL("image/jpeg"));
+
+                    alert(orientation)
+                    if (orientation != "" && orientation != 1) {
+                        switch (orientation) {
+                            case 6:
+                                //需要顺时针（向左）90度旋转
+                                alert(90)
+                                rotateImg(this, '90');
+                                break;
+                            case 8:
+                                //需要逆时针（向右）90度旋转
+                                alert(270)
+                                rotateImg(this, '270');
+                                break;
+                            case 3:
+                                //需要180度旋转
+                                alert(180)
+                                rotateImg(this, '180');
+                                break;
+                        }
+                    }
+                }
             });
-
-            var image = new Image();
-            image.src = e.target.result;
-            image.onload = function () {
-                var expectWidth = this.naturalWidth;
-                var expectHeight = this.naturalHeight;
-
-                var canvas = document.createElement("canvas");
-                var ctx = canvas.getContext("2d");
-                canvas.width = expectWidth;
-                canvas.height = expectHeight;
-                ctx.drawImage(this, 0, 0, expectWidth, expectHeight);
-                console.log(ctx)
-
-                $('#canvasImage').attr('src', canvas.toDataURL("image/jpeg"));
-
-                rotateImg(this, 'right');
-
-                //                if (navigator.userAgent.match(/iphone/i)) {
-                //                    switch (orientation) {
-                //                        case 6:
-                //                            rotateImg(this, 'right');
-                //                            break;
-                //                    }
-                //                }
-            }
         }
         oReader.readAsDataURL(imgFile);
     }
 
-    function rotateImg (img, direction) {
+    function rotateImg (img, angle) {
         var width = img.width;
         var height = img.height;
-        var canvas = document.createElement('canvas');
-        var ctx = canvas.getContext("2d");
-        var ANGLE = Math.PI / 180;
+        var ocanvas = document.createElement('canvas');
+        var ctx = ocanvas.getContext("2d");
+        var degree = angle * Math.PI / 180;
 
-        //        canvas.width = height;
-        //        canvas.height = width;
-        canvas.width = width;
-        canvas.height = height;
-        ctx.rotate(ANGLE * 90);
-        ctx.drawImage(img, 0, -height, width, height);
-        console.log(ctx)
-        $('#rotateImage').attr('src', canvas.toDataURL("image/jpeg"));
+        alert('w:' + width + ',h:' + height)
+
+        switch (angle) {
+            case '0':
+                ocanvas.width = width;
+                ocanvas.height = height;
+                ctx.drawImage(img, 0, 0, width, height);
+                break;
+            case '90':
+                ocanvas.width = height;
+                ocanvas.height = width;
+                ctx.rotate(degree);
+                ctx.drawImage(img, 0, -height, width, height);
+                break;
+            case '180':
+                ocanvas.width = width;
+                ocanvas.height = height;
+                ctx.rotate(degree);
+                ctx.drawImage(img, -width, -height, width, height);
+                break;
+            case '270':
+                ocanvas.width = height;
+                ocanvas.height = width;
+                ctx.rotate(degree);
+                ctx.drawImage(img, -width, 0, width, height);
+                break;
+        }
+
+        $('#rotateImage').attr('src', ocanvas.toDataURL("image/jpeg"));
     }
 </script>
 </html>
